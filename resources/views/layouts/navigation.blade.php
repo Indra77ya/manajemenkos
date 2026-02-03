@@ -197,8 +197,8 @@
                                 $isActive = request()->routeIs($link['active_check']);
                             }
 
-                            // Special handling for Pendaftaran Dropdown
-                            $isDropdown = ($link['route'] === 'admin.pendaftaran');
+                            // Special handling for Dropdowns
+                            $isDropdown = in_array($link['route'], ['admin.pendaftaran', 'admin.pembayaran']);
                         @endphp
 
                         @if($isDropdown)
@@ -223,9 +223,17 @@
                                      class="absolute top-full left-0 z-50 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 origin-top-left"
                                      style="display: none;">
                                     <div class="py-1">
-                                        <a href="{{ route('admin.pendaftaran.entri') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Entri</a>
-                                        <a href="{{ route('admin.pendaftaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
-                                        <a href="{{ route('admin.pendaftaran.pindah-kamar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Pindah Kamar</a>
+                                        @if($link['route'] === 'admin.pendaftaran')
+                                            <a href="{{ route('admin.pendaftaran.entri') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Entri</a>
+                                            <a href="{{ route('admin.pendaftaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
+                                            <a href="{{ route('admin.pendaftaran.pindah-kamar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Pindah Kamar</a>
+                                        @elseif($link['route'] === 'admin.pembayaran')
+                                            <a href="{{ route('admin.pembayaran.entri') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Entri</a>
+                                            <a href="{{ route('admin.pembayaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
+                                            <a href="{{ route('admin.pembayaran.deposit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Deposit</a>
+                                            <a href="{{ route('admin.pembayaran.konfirmasi-bayar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Konfirmasi bayar</a>
+                                            <a href="{{ route('admin.pembayaran.check-out') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Check Out</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

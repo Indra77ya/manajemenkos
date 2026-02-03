@@ -44,6 +44,28 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/pendaftaran', function () {
         return view('admin.pendaftaran');
     })->name('pendaftaran');
+
+    // Pembayaran Sub-Routes
+    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+        Route::get('/entri', function () {
+            // Redirect to invoice creation as requested
+            return redirect()->route('admin.invoices.create');
+        })->name('entri');
+        Route::get('/edit', function () {
+            // Redirect to invoice list as requested
+            return redirect()->route('admin.invoices.index');
+        })->name('edit');
+        Route::get('/deposit', function () {
+            return view('admin.pembayaran.deposit');
+        })->name('deposit');
+        Route::get('/konfirmasi-bayar', function () {
+            return view('admin.pembayaran.konfirmasi_bayar');
+        })->name('konfirmasi-bayar');
+        Route::get('/check-out', function () {
+            return view('admin.pembayaran.check_out');
+        })->name('check-out');
+    });
+
     Route::get('/pembayaran', function () {
         return view('admin.pembayaran');
     })->name('pembayaran');
