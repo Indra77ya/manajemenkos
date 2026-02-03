@@ -98,6 +98,38 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/pengeluaran', function () {
         return view('admin.pengeluaran');
     })->name('pengeluaran');
+    // Laporan Sub-Routes
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        // Kamar
+        Route::prefix('kamar')->name('kamar.')->group(function () {
+            Route::get('/status-kamar', function () { return view('admin.laporan.kamar.status_kamar'); })->name('status-kamar');
+            Route::get('/kamar-kosong', function () { return view('admin.laporan.kamar.kamar_kosong'); })->name('kamar-kosong');
+        });
+
+        // Pendaftaran
+        Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
+            Route::get('/laporan-pendaftaran', function () { return view('admin.laporan.pendaftaran.laporan_pendaftaran'); })->name('laporan-pendaftaran');
+            Route::get('/status-penghuni', function () { return view('admin.laporan.pendaftaran.status_penghuni'); })->name('status-penghuni');
+            Route::get('/cetak-pendaftaran', function () { return view('admin.laporan.pendaftaran.cetak_pendaftaran'); })->name('cetak-pendaftaran');
+            Route::get('/daftar-penghuni', function () { return view('admin.laporan.pendaftaran.daftar_penghuni'); })->name('daftar-penghuni');
+        });
+
+        // Pembayaran
+        Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+            Route::get('/rekap-bulanan', function () { return view('admin.laporan.pembayaran.rekap_bulanan'); })->name('rekap-bulanan');
+            Route::get('/cicilan', function () { return view('admin.laporan.pembayaran.cicilan'); })->name('cicilan');
+            Route::get('/per-penyewa', function () { return view('admin.laporan.pembayaran.per_penyewa'); })->name('per-penyewa');
+            Route::get('/belum-bayar', function () { return view('admin.laporan.pembayaran.belum_bayar'); })->name('belum-bayar');
+            Route::get('/cetak-kuitansi', function () { return view('admin.laporan.pembayaran.cetak_kuitansi'); })->name('cetak-kuitansi');
+            Route::get('/rekap-mutasi', function () { return view('admin.laporan.pembayaran.rekap_mutasi'); })->name('rekap-mutasi');
+            Route::get('/mutasi-penghuni', function () { return view('admin.laporan.pembayaran.mutasi_penghuni'); })->name('mutasi-penghuni');
+        });
+
+        Route::get('/pemasukan-lain', function () { return view('admin.laporan.pemasukan_lain'); })->name('pemasukan-lain');
+        Route::get('/pengeluaran', function () { return view('admin.laporan.pengeluaran'); })->name('pengeluaran');
+        Route::get('/laba-rugi', function () { return view('admin.laporan.laba_rugi'); })->name('laba-rugi');
+    });
+
     Route::get('/laporan', function () {
         return view('admin.laporan');
     })->name('laporan');

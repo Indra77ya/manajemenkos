@@ -198,7 +198,7 @@
                             }
 
                             // Special handling for Dropdowns
-                            $isDropdown = in_array($link['route'], ['admin.pendaftaran', 'admin.pembayaran', 'admin.pemasukan-lain', 'admin.pengeluaran']);
+                            $isDropdown = in_array($link['route'], ['admin.pendaftaran', 'admin.pembayaran', 'admin.pemasukan-lain', 'admin.pengeluaran', 'admin.laporan']);
                         @endphp
 
                         @if($isDropdown)
@@ -240,6 +240,51 @@
                                             <a href="{{ route('admin.pengeluaran.rutin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Rutin</a>
                                             <a href="{{ route('admin.pengeluaran.insidentil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Insidentil</a>
                                             <a href="{{ route('admin.pengeluaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
+                                        @elseif($link['route'] === 'admin.laporan')
+                                            <!-- Nested Laporan Dropdown -->
+                                            <div class="relative group/nested">
+                                                <button class="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                                    <span>Kamar</span>
+                                                    <svg class="w-4 h-4 ml-1 transform -rotate-90" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                                </button>
+                                                <div class="absolute left-full top-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 invisible group-hover/nested:visible">
+                                                    <a href="{{ route('admin.laporan.kamar.status-kamar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Status Kamar</a>
+                                                    <a href="{{ route('admin.laporan.kamar.kamar-kosong') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kamar Kosong</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="relative group/nested">
+                                                <button class="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                                    <span>Pendaftaran</span>
+                                                    <svg class="w-4 h-4 ml-1 transform -rotate-90" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                                </button>
+                                                <div class="absolute left-full top-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 invisible group-hover/nested:visible">
+                                                    <a href="{{ route('admin.laporan.pendaftaran.laporan-pendaftaran') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Laporan Pendaftaran</a>
+                                                    <a href="{{ route('admin.laporan.pendaftaran.status-penghuni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Status Penghuni</a>
+                                                    <a href="{{ route('admin.laporan.pendaftaran.cetak-pendaftaran') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cetak Pendaftaran</a>
+                                                    <a href="{{ route('admin.laporan.pendaftaran.daftar-penghuni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Daftar Penghuni</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="relative group/nested">
+                                                <button class="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                                    <span>Pembayaran</span>
+                                                    <svg class="w-4 h-4 ml-1 transform -rotate-90" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                                </button>
+                                                <div class="absolute left-full top-0 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 invisible group-hover/nested:visible">
+                                                    <a href="{{ route('admin.laporan.pembayaran.rekap-bulanan') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Rekap Bulanan</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.cicilan') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cicilan/Belum Lunas</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.per-penyewa') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Per Penyewa</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.belum-bayar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Belum Bayar</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.cetak-kuitansi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cetak Kuitansi</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.rekap-mutasi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Rekap Mutasi Deposit</a>
+                                                    <a href="{{ route('admin.laporan.pembayaran.mutasi-penghuni') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mutasi Deposit Penghuni</a>
+                                                </div>
+                                            </div>
+
+                                            <a href="{{ route('admin.laporan.pemasukan-lain') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Pemasukan Lain</a>
+                                            <a href="{{ route('admin.laporan.pengeluaran') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Pengeluaran</a>
+                                            <a href="{{ route('admin.laporan.laba-rugi') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Laba Rugi</a>
                                         @endif
                                     </div>
                                 </div>
