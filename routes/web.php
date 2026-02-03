@@ -42,6 +42,55 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         return view('admin.laporan');
     })->name('laporan');
 
+    // Pusat Data Routes
+    Route::get('/owner-profil', function () {
+        return view('admin.pusat_data.owner_profil');
+    })->name('owner-profil');
+
+    Route::get('/pengguna', function () {
+        return view('admin.pusat_data.pengguna');
+    })->name('pengguna');
+
+    Route::get('/lokasi-kos', function () {
+        return view('admin.pusat_data.lokasi_kos');
+    })->name('lokasi-kos');
+
+    Route::get('/email-setting', function () {
+        return view('admin.pusat_data.email_setting');
+    })->name('email-setting');
+
+    Route::get('/kamar', function () {
+        return view('admin.pusat_data.kamar');
+    })->name('kamar');
+
+    Route::get('/login-penghuni', function () {
+        return view('admin.pusat_data.login_penghuni');
+    })->name('login-penghuni');
+
+    Route::get('/denda', function () {
+        return view('admin.pusat_data.denda');
+    })->name('denda');
+
+    Route::get('/info-rekening', function () {
+        return view('admin.pusat_data.info_rekening');
+    })->name('info-rekening');
+
+    Route::get('/setting-pernyataan', function () {
+        return view('admin.pusat_data.setting_pernyataan');
+    })->name('setting-pernyataan');
+
+    Route::get('/variabel-kwh-pln', function () {
+        return view('admin.pusat_data.variabel_kwh_pln');
+    })->name('variabel-kwh-pln');
+
+    Route::get('/biaya-tambahan-kamar', function () {
+        return view('admin.pusat_data.biaya_tambahan_kamar');
+    })->name('biaya-tambahan-kamar');
+
+    Route::get('/jenis-pengeluaran-rutin', function () {
+        return view('admin.pusat_data.jenis_pengeluaran_rutin');
+    })->name('jenis-pengeluaran-rutin');
+
     Route::resource('branches', BranchController::class);
     Route::resource('room-types', RoomTypeController::class);
     Route::resource('rooms', RoomController::class);

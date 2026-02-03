@@ -14,8 +14,8 @@
                     <!-- Top Menu Items -->
                     <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-4">
                         <!-- Pusat Data Dropdown -->
-                        <x-dropdown align="left" width="48">
-                            <x-slot name="trigger">
+                        <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+                            <div @click="open = ! open">
                                 <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:bg-sky-700 focus:outline-none transition ease-in-out duration-150">
                                     <i class="mr-2">
                                         <!-- Gear Icon -->
@@ -28,12 +28,47 @@
                                         </svg>
                                     </div>
                                 </button>
-                            </x-slot>
-                            <x-slot name="content">
-                                <x-dropdown-link href="#">Placeholder 1</x-dropdown-link>
-                                <x-dropdown-link href="#">Placeholder 2</x-dropdown-link>
-                            </x-slot>
-                        </x-dropdown>
+                            </div>
+
+                            <div x-show="open"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="opacity-0 scale-95"
+                                    x-transition:enter-end="opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="opacity-100 scale-100"
+                                    x-transition:leave-end="opacity-0 scale-95"
+                                    class="absolute z-50 mt-2 w-56 rounded-md shadow-lg ltr:origin-top-left rtl:origin-top-right start-0"
+                                    style="display: none;"
+                                    @click="open = false">
+                                <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
+                                    @php
+                                        $pusatDataLinks = [
+                                            ['label' => 'Owner Profil', 'route' => 'admin.owner-profil'],
+                                            ['label' => 'Pengguna', 'route' => 'admin.pengguna'],
+                                            ['label' => 'Lokasi Kos', 'route' => 'admin.branches.index'], // Use actual resource
+                                            ['label' => 'E-mail Setting', 'route' => 'admin.email-setting'],
+                                            ['label' => 'Kamar', 'route' => 'admin.rooms.index'], // Use actual resource
+                                            ['label' => 'Login Penghuni', 'route' => 'admin.login-penghuni'],
+                                            ['label' => 'Denda', 'route' => 'admin.denda'],
+                                            ['label' => 'Info Rekening', 'route' => 'admin.info-rekening'],
+                                            ['label' => 'Setting Pernyataan', 'route' => 'admin.setting-pernyataan'],
+                                            ['label' => 'Variabel Kwh PLN', 'route' => 'admin.variabel-kwh-pln'],
+                                            ['label' => 'Biaya Tambahan Kamar', 'route' => 'admin.biaya-tambahan-kamar'],
+                                            ['label' => 'Jenis Pengeluaran Rutin', 'route' => 'admin.jenis-pengeluaran-rutin'],
+                                        ];
+                                    @endphp
+                                    @foreach($pusatDataLinks as $link)
+                                        <x-dropdown-link :href="Route::has($link['route']) ? route($link['route']) : '#'" class="flex items-center">
+                                            <!-- Small triangle icon -->
+                                            <svg class="w-2 h-2 mr-2 text-gray-400" viewBox="0 0 8 8" fill="currentColor">
+                                                <path d="M0 0l4 4 4-4H0z" transform="rotate(-90 4 4)" />
+                                            </svg>
+                                            {{ $link['label'] }}
+                                        </x-dropdown-link>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Pesan Dropdown -->
                         <x-dropdown align="left" width="48">
