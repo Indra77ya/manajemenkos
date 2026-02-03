@@ -198,7 +198,7 @@
                             }
 
                             // Special handling for Dropdowns
-                            $isDropdown = in_array($link['route'], ['admin.pendaftaran', 'admin.pembayaran', 'admin.pemasukan-lain']);
+                            $isDropdown = in_array($link['route'], ['admin.pendaftaran', 'admin.pembayaran', 'admin.pemasukan-lain', 'admin.pengeluaran']);
                         @endphp
 
                         @if($isDropdown)
@@ -236,6 +236,10 @@
                                         @elseif($link['route'] === 'admin.pemasukan-lain')
                                             <a href="{{ route('admin.pemasukan-lain.entri') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Entri</a>
                                             <a href="{{ route('admin.pemasukan-lain.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
+                                        @elseif($link['route'] === 'admin.pengeluaran')
+                                            <a href="{{ route('admin.pengeluaran.rutin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Rutin</a>
+                                            <a href="{{ route('admin.pengeluaran.insidentil') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Insidentil</a>
+                                            <a href="{{ route('admin.pengeluaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
                                         @endif
                                     </div>
                                 </div>
