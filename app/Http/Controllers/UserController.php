@@ -46,10 +46,6 @@ class UserController extends Controller
             'photo' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        // "Untuk lokasi cabang kos ini, wajib diisi kalau owner bisa melihat semua cabang"
-        // Interpretation: Branch is required, but Owner (Admin) can see all, implying Admin might not need to be tied to one branch
-        // or allows NULL to signify "All Branches".
-        // However, for other roles (Staff, Tenant), it must be mandatory.
         if ($request->role !== 'admin' && empty($request->branch_id)) {
              $request->validate([
                 'branch_id' => 'required'
@@ -60,6 +56,7 @@ class UserController extends Controller
 
         $userData = $request->except(['password', 'password_confirmation', 'photo']);
         $userData['password'] = Hash::make($request->password);
+        $userData['plain_password'] = $request->password; // Store plain password
 
         if ($request->hasFile('photo')) {
             $userData['photo_path'] = $request->file('photo')->store('profile-photos', 'public');
@@ -102,6 +99,7 @@ class UserController extends Controller
                 'password' => ['confirmed', Rules\Password::defaults()],
             ]);
             $user->password = Hash::make($request->password);
+            $user->plain_password = $request->password; // Update plain password
         }
 
         $user->fill($request->except(['password', 'password_confirmation', 'photo']));

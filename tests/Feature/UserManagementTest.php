@@ -32,7 +32,7 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_admin_can_create_user()
+    public function test_admin_can_create_user_with_plain_password()
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $branch = Branch::create(['name' => 'Cabang Pusat', 'address' => 'Jl. Pusat No 1']);
@@ -43,8 +43,8 @@ class UserManagementTest extends TestCase
             'name' => 'New User',
             'username' => 'newuser',
             'email' => 'new@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
+            'password' => 'secret123',
+            'password_confirmation' => 'secret123',
             'role' => 'staff',
             'branch_id' => $branch->id,
             'status' => '1',
@@ -52,7 +52,11 @@ class UserManagementTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.pengguna'));
-        $this->assertDatabaseHas('users', ['email' => 'new@example.com', 'username' => 'newuser']);
+        $this->assertDatabaseHas('users', [
+            'email' => 'new@example.com',
+            'username' => 'newuser',
+            'plain_password' => 'secret123' // Verify plain password is saved
+        ]);
     }
 
     public function test_validation_fails_if_staff_missing_branch()
@@ -72,23 +76,35 @@ class UserManagementTest extends TestCase
         $response->assertSessionHasErrors('branch_id');
     }
 
-    public function test_admin_can_update_user()
+    public function test_admin_can_update_user_and_plain_password()
     {
         $admin = User::factory()->create(['role' => 'admin']);
         $branch = Branch::create(['name' => 'Cabang Pusat', 'address' => 'Jl. Pusat No 1']);
-        $user = User::factory()->create(['role' => 'staff', 'name' => 'Old Name', 'branch_id' => $branch->id]);
+        $user = User::factory()->create([
+            'role' => 'staff',
+            'name' => 'Old Name',
+            'branch_id' => $branch->id,
+            'password' => bcrypt('oldpass'),
+            'plain_password' => 'oldpass'
+        ]);
 
         $response = $this->actingAs($admin)->put(route('admin.pengguna.update', $user), [
             'name' => 'New Name',
             'username' => 'updateduser',
             'email' => $user->email,
             'role' => 'staff',
-            'branch_id' => $branch->id, // Required for staff
+            'branch_id' => $branch->id,
             'status' => '1',
+            'password' => 'newpass123',
+            'password_confirmation' => 'newpass123'
         ]);
 
         $response->assertRedirect(route('admin.pengguna'));
-        $this->assertDatabaseHas('users', ['id' => $user->id, 'name' => 'New Name']);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'New Name',
+            'plain_password' => 'newpass123' // Verify updated plain password
+        ]);
     }
 
     public function test_login_with_username()

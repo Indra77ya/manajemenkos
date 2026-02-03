@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'plain_password', // Added for requested feature
         'role',
         'username',
         'branch_id',
@@ -37,6 +38,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        // 'plain_password', // Do not hide if we want to show it in API/Views without explicit select, though usually good practice to hide.
+        // Since we pass models to view, hidden attributes are accessible via direct access $user->plain_password,
+        // but hidden affects toArray/toJson. We can keep it visible or hidden, doesn't matter for Blade $user->plain_password access.
     ];
 
     /**
