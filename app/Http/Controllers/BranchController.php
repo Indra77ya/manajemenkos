@@ -44,7 +44,7 @@ class BranchController extends Controller
 
         Branch::create($validated);
 
-        return redirect()->route('admin.branches.index')->with('success', 'Branch created successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil ditambahkan.');
     }
 
     /**
@@ -83,7 +83,7 @@ class BranchController extends Controller
 
         $branch->update($validated);
 
-        return redirect()->route('admin.branches.index')->with('success', 'Branch updated successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil diperbarui.');
     }
 
     /**
@@ -92,6 +92,6 @@ class BranchController extends Controller
     public function destroy(Branch $branch)
     {
         $branch->delete();
-        return redirect()->route('admin.branches.index')->with('success', 'Branch deleted successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil dihapus.');
     }
 }
