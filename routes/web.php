@@ -138,9 +138,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/owner-profil', [\App\Http\Controllers\OwnerProfileController::class, 'edit'])->name('owner-profil');
     Route::put('/owner-profil', [\App\Http\Controllers\OwnerProfileController::class, 'update'])->name('owner-profil.update');
 
-    Route::get('/pengguna', function () {
-        return view('admin.pusat_data.pengguna');
-    })->name('pengguna');
+    // Pengguna Routes
+    Route::get('/pengguna', [\App\Http\Controllers\UserController::class, 'index'])->name('pengguna');
+    Route::get('/pengguna/create', [\App\Http\Controllers\UserController::class, 'create'])->name('pengguna.create');
+    Route::post('/pengguna', [\App\Http\Controllers\UserController::class, 'store'])->name('pengguna.store');
+    Route::get('/pengguna/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('pengguna.edit');
+    Route::put('/pengguna/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('pengguna.update');
+    Route::delete('/pengguna/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('pengguna.destroy');
 
     Route::get('/lokasi-kos', function () {
         return view('admin.pusat_data.lokasi_kos');
