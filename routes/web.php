@@ -26,6 +26,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         return view('admin.dashboard');
     })->name('dashboard');
 
+    Route::get('/pendaftaran', function () {
+        return view('admin.pendaftaran');
+    })->name('pendaftaran');
+    Route::get('/pembayaran', function () {
+        return view('admin.pembayaran');
+    })->name('pembayaran');
+    Route::get('/pemasukan-lain', function () {
+        return view('admin.pemasukan_lain');
+    })->name('pemasukan-lain');
+    Route::get('/pengeluaran', function () {
+        return view('admin.pengeluaran');
+    })->name('pengeluaran');
+    Route::get('/laporan', function () {
+        return view('admin.laporan');
+    })->name('laporan');
+
     Route::resource('branches', BranchController::class);
     Route::resource('room-types', RoomTypeController::class);
     Route::resource('rooms', RoomController::class);
