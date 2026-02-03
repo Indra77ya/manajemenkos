@@ -53,13 +53,19 @@ Berikut adalah langkah-langkah untuk menjalankan aplikasi di lingkungan lokal (l
     php artisan key:generate
     ```
 
-6.  **Migrasi Database dan Seeder**
+6.  **Buat Symlink Storage**
+    Agar file yang diupload (seperti foto kamar) dapat diakses publik:
+    ```bash
+    php artisan storage:link
+    ```
+
+7.  **Migrasi Database dan Seeder**
     Jalankan perintah ini untuk membuat tabel dan mengisi data awal (akun default):
     ```bash
     php artisan migrate --seed
     ```
 
-7.  **Jalankan Aplikasi**
+8.  **Jalankan Aplikasi**
     Anda perlu menjalankan dua terminal terpisah:
 
     *   Terminal 1 (Server Laravel):
@@ -101,13 +107,18 @@ Untuk menyebarkan aplikasi ke server produksi:
     php artisan view:cache
     ```
 
-5.  **Migrasi Database**
+5.  **Setup Storage**
+    ```bash
+    php artisan storage:link
+    ```
+
+6.  **Migrasi Database**
     ```bash
     php artisan migrate --force
     ```
     *Catatan: Gunakan `--seed` hanya jika ini adalah instalasi pertama kali dan Anda membutuhkan data awal.*
 
-6.  **Hak Akses Folder**
+7.  **Hak Akses Folder**
     Pastikan folder storage dan cache dapat ditulis oleh web server (misalnya www-data):
     ```bash
     chmod -R 775 storage bootstrap/cache
