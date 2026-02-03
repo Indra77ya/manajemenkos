@@ -190,23 +190,57 @@
                 @endphp
 
                 @foreach($navLinks as $link)
-                    @if(Route::has($link['route']))
+                    @if(Route::has($link['route']) || ($link['route'] === 'admin.pendaftaran' && Auth::user()->role === 'admin'))
                         @php
                             $isActive = request()->routeIs($link['route']);
                             if (isset($link['active_check'])) {
                                 $isActive = request()->routeIs($link['active_check']);
                             }
+
+                            // Special handling for Pendaftaran Dropdown
+                            $isDropdown = ($link['route'] === 'admin.pendaftaran');
                         @endphp
-                        <a href="{{ route($link['route']) }}"
-                           class="flex flex-col items-center justify-center px-4 py-3 border-r border-gray-100 min-w-[100px] group transition duration-150 ease-in-out
-                           {{ $isActive ? 'text-sky-600' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700' }}">
-                            <div class="mb-1">
-                                <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                     <path fill-rule="evenodd" d="{{ $link['icon'] }}" clip-rule="evenodd"/>
-                                </svg>
+
+                        @if($isDropdown)
+                            <div class="relative flex flex-col items-center justify-center border-r border-gray-100 min-w-[100px] group" x-data="{ open: false }" @click.outside="open = false" @mouseleave="open = false">
+                                <button @click="open = ! open" class="flex flex-col items-center justify-center px-4 py-3 w-full h-full focus:outline-none transition duration-150 ease-in-out {{ $isActive ? 'text-sky-600' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700' }}">
+                                    <div class="mb-1">
+                                        <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="{{ $link['icon'] }}" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                    <div class="text-sm font-medium">{{ $link['label'] }}</div>
+                                </button>
+
+                                <!-- Dropdown Menu -->
+                                <div x-show="open"
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 scale-95"
+                                     x-transition:enter-end="opacity-100 scale-100"
+                                     x-transition:leave="transition ease-in duration-75"
+                                     x-transition:leave-start="opacity-100 scale-100"
+                                     x-transition:leave-end="opacity-0 scale-95"
+                                     class="absolute top-full left-0 z-50 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 origin-top-left"
+                                     style="display: none;">
+                                    <div class="py-1">
+                                        <a href="{{ route('admin.pendaftaran.entri') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Entri</a>
+                                        <a href="{{ route('admin.pendaftaran.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Edit</a>
+                                        <a href="{{ route('admin.pendaftaran.pindah-kamar') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Pindah Kamar</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-sm font-medium">{{ $link['label'] }}</div>
-                        </a>
+                        @else
+                            <a href="{{ route($link['route']) }}"
+                               class="flex flex-col items-center justify-center px-4 py-3 border-r border-gray-100 min-w-[100px] group transition duration-150 ease-in-out
+                               {{ $isActive ? 'text-sky-600' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700' }}">
+                                <div class="mb-1">
+                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                         <path fill-rule="evenodd" d="{{ $link['icon'] }}" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <div class="text-sm font-medium">{{ $link['label'] }}</div>
+                            </a>
+                        @endif
                     @endif
                 @endforeach
             </div>

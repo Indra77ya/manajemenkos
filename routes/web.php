@@ -26,6 +26,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         return view('admin.dashboard');
     })->name('dashboard');
 
+    // Pendaftaran Sub-Routes
+    Route::prefix('pendaftaran')->name('pendaftaran.')->group(function () {
+        Route::get('/entri', function () {
+            return view('admin.pendaftaran.entri');
+        })->name('entri');
+        Route::get('/edit', function () {
+            return view('admin.pendaftaran.edit');
+        })->name('edit');
+        Route::get('/pindah-kamar', function () {
+            return view('admin.pendaftaran.pindah_kamar');
+        })->name('pindah-kamar');
+    });
+
+    // Keeping the main route for now as a fallback or dashboard if needed,
+    // though navigation will use the dropdown.
     Route::get('/pendaftaran', function () {
         return view('admin.pendaftaran');
     })->name('pendaftaran');
