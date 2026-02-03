@@ -9,7 +9,18 @@ class Branch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address', 'description'];
+    protected $fillable = [
+        'name',
+        'address',
+        'description',
+        'code',
+        'manager_name',
+        'assistant_1_name',
+        'assistant_2_name',
+        'phone',
+        'manager_phone',
+        'cost'
+    ];
 
     public function rooms()
     {

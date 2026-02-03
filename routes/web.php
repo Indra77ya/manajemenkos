@@ -146,10 +146,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/pengguna/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('pengguna.update');
     Route::delete('/pengguna/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('pengguna.destroy');
 
-    Route::get('/lokasi-kos', function () {
-        return view('admin.pusat_data.lokasi_kos');
-    })->name('lokasi-kos');
-
     Route::get('/email-setting', function () {
         return view('admin.pusat_data.email_setting');
     })->name('email-setting');
