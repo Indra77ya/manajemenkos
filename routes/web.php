@@ -135,9 +135,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     })->name('laporan');
 
     // Pusat Data Routes
-    Route::get('/owner-profil', function () {
-        return view('admin.pusat_data.owner_profil');
-    })->name('owner-profil');
+    Route::get('/owner-profil', [\App\Http\Controllers\OwnerProfileController::class, 'edit'])->name('owner-profil');
+    Route::put('/owner-profil', [\App\Http\Controllers\OwnerProfileController::class, 'update'])->name('owner-profil.update');
 
     Route::get('/pengguna', function () {
         return view('admin.pusat_data.pengguna');
