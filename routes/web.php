@@ -69,6 +69,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/pembayaran', function () {
         return view('admin.pembayaran');
     })->name('pembayaran');
+    // Pemasukan Lain Sub-Routes
+    Route::prefix('pemasukan-lain')->name('pemasukan-lain.')->group(function () {
+        Route::get('/entri', function () {
+            return view('admin.pemasukan_lain.entri');
+        })->name('entri');
+        Route::get('/edit', function () {
+            return view('admin.pemasukan_lain.edit');
+        })->name('edit');
+    });
+
     Route::get('/pemasukan-lain', function () {
         return view('admin.pemasukan_lain');
     })->name('pemasukan-lain');
