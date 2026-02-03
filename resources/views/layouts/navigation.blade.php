@@ -122,11 +122,15 @@
                                         <div class="text-xs opacity-75">Welcome,</div>
                                         <div>{{ Auth::user()->name }}</div>
                                     </div>
-                                    <!-- Avatar Placeholder -->
+                                    <!-- User Avatar -->
                                     <div class="h-8 w-8 rounded-full bg-gray-300 overflow-hidden">
-                                        <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                        </svg>
+                                        @if(Auth::user()->photo_path)
+                                            <img class="h-full w-full object-cover" src="{{ asset('storage/' . Auth::user()->photo_path) }}" alt="{{ Auth::user()->name }}">
+                                        @else
+                                            <svg class="h-full w-full text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        @endif
                                     </div>
                                     <div class="ms-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
