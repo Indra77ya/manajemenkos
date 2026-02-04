@@ -39,6 +39,10 @@ class BranchController extends Controller
             'phone' => 'nullable|string|max:255',
             'manager_phone' => 'nullable|string|max:255',
             'cost' => 'nullable|numeric|min:0',
+            'cost_wifi' => 'nullable|numeric|min:0',
+            'cost_water' => 'nullable|numeric|min:0',
+            'cost_electricity' => 'nullable|numeric|min:0',
+            'cost_other' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 
@@ -78,6 +82,10 @@ class BranchController extends Controller
             'phone' => 'nullable|string|max:255',
             'manager_phone' => 'nullable|string|max:255',
             'cost' => 'nullable|numeric|min:0',
+            'cost_wifi' => 'nullable|numeric|min:0',
+            'cost_water' => 'nullable|numeric|min:0',
+            'cost_electricity' => 'nullable|numeric|min:0',
+            'cost_other' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 

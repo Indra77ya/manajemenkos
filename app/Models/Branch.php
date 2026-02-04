@@ -19,7 +19,11 @@ class Branch extends Model
         'assistant_2_name',
         'phone',
         'manager_phone',
-        'cost'
+        'cost',
+        'cost_wifi',
+        'cost_water',
+        'cost_electricity',
+        'cost_other'
     ];
 
     public function rooms()

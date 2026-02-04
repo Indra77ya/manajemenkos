@@ -9,6 +9,18 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div x-data="{
+                        cost_wifi: 0,
+                        cost_water: 0,
+                        cost_electricity: 0,
+                        cost_other: 0,
+                        get total() {
+                            return (parseFloat(this.cost_wifi) || 0) +
+                                   (parseFloat(this.cost_water) || 0) +
+                                   (parseFloat(this.cost_electricity) || 0) +
+                                   (parseFloat(this.cost_other) || 0);
+                        }
+                    }">
                     <form action="{{ route('admin.branches.store') }}" method="POST">
                         @csrf
 
@@ -61,10 +73,33 @@
                                 <input type="text" name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
                             </div>
 
-                            <!-- Biaya Lokasi -->
-                            <div class="mb-4">
-                                <label for="cost" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Lokasi (Opsional)</label>
-                                <input type="number" name="cost" id="cost" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
+                            <!-- Biaya Operasional Section -->
+                            <div class="md:col-span-2 border-t pt-4 mt-2">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Rincian Biaya Operasional (Bulanan)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="mb-4">
+                                        <label for="cost_wifi" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Biaya WiFi</label>
+                                        <input type="number" name="cost_wifi" id="cost_wifi" x-model="cost_wifi" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cost_water" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Air</label>
+                                        <input type="number" name="cost_water" id="cost_water" x-model="cost_water" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cost_electricity" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Listrik</label>
+                                        <input type="number" name="cost_electricity" id="cost_electricity" x-model="cost_electricity" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cost_other" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Biaya Lainnya</label>
+                                        <input type="number" name="cost_other" id="cost_other" x-model="cost_other" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Total Biaya Lokasi -->
+                            <div class="mb-4 md:col-span-2">
+                                <label for="cost" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Total Biaya Lokasi (Otomatis)</label>
+                                <input type="number" name="cost" id="cost" x-model="total" readonly class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 cursor-not-allowed text-gray-500">
                             </div>
                         </div>
 
@@ -72,6 +107,7 @@
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
