@@ -38,7 +38,7 @@ class BranchController extends Controller
             'assistant_2_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
             'manager_phone' => 'nullable|string|max:255',
-            'cost' => 'required|numeric|min:0',
+            'cost' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 
@@ -77,7 +77,7 @@ class BranchController extends Controller
             'assistant_2_name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:255',
             'manager_phone' => 'nullable|string|max:255',
-            'cost' => 'required|numeric|min:0',
+            'cost' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 
