@@ -39,7 +39,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $branch->code }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $branch->manager_name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $branch->phone }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($branch->cost, 2) }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($branch->cost, 0) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <a href="{{ route('admin.branches.edit', $branch) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
                                         <form action="{{ route('admin.branches.destroy', $branch) }}" method="POST" class="inline">
