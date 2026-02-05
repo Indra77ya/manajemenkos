@@ -31,13 +31,24 @@ class BranchController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
             'address' => 'required|string',
+            'manager_name' => 'required|string|max:255',
+            'assistant_1_name' => 'nullable|string|max:255',
+            'assistant_2_name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'manager_phone' => 'nullable|string|max:255',
+            'cost' => 'nullable|numeric|min:0',
+            'cost_wifi' => 'nullable|numeric|min:0',
+            'cost_water' => 'nullable|numeric|min:0',
+            'cost_electricity' => 'nullable|numeric|min:0',
+            'cost_other' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 
         Branch::create($validated);
 
-        return redirect()->route('admin.branches.index')->with('success', 'Branch created successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil ditambahkan.');
     }
 
     /**
@@ -63,13 +74,24 @@ class BranchController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'code' => 'required|string|max:255',
             'address' => 'required|string',
+            'manager_name' => 'required|string|max:255',
+            'assistant_1_name' => 'nullable|string|max:255',
+            'assistant_2_name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:255',
+            'manager_phone' => 'nullable|string|max:255',
+            'cost' => 'nullable|numeric|min:0',
+            'cost_wifi' => 'nullable|numeric|min:0',
+            'cost_water' => 'nullable|numeric|min:0',
+            'cost_electricity' => 'nullable|numeric|min:0',
+            'cost_other' => 'nullable|numeric|min:0',
             'description' => 'nullable|string',
         ]);
 
         $branch->update($validated);
 
-        return redirect()->route('admin.branches.index')->with('success', 'Branch updated successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil diperbarui.');
     }
 
     /**
@@ -78,6 +100,6 @@ class BranchController extends Controller
     public function destroy(Branch $branch)
     {
         $branch->delete();
-        return redirect()->route('admin.branches.index')->with('success', 'Branch deleted successfully.');
+        return redirect()->route('admin.branches.index')->with('success', 'Lokasi Kos berhasil dihapus.');
     }
 }
